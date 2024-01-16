@@ -3,6 +3,8 @@ import pytmx
 import pyscroll
 from Player import Player
 pygame.init()
+pygame.mixer.init()  # Initialiser le module mixer
+pygame.mixer.music.load('Title.ogg')  # Charger la musique de fond
 
 class Game:
     def __init__(self):
@@ -18,6 +20,9 @@ class Game:
         # Generer un joueur
         player_position = tmx_data.get_object_by_name("player")
         self.player = Player(player_position.x,player_position.y)
+
+        # Jouer la musique en boucle indéfinie
+        pygame.mixer.music.play(-1)
 
         # Définir une liste stock rectangles de collision
         self.walls = []
@@ -71,4 +76,5 @@ class Game:
                     running = False
             clock.tick(60)
 
+        pygame.mixer.music.stop()
         pygame.quit()
